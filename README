@@ -1,0 +1,35 @@
+CDatabaseCreator
+================
+
+	Description:
+		Class for creating database tables. This is meant to be used
+		for creating installer scripts for database tables.
+
+	License:
+		GNU AGPL
+
+	Author:
+		Aleksi Räsänen, 2011
+		aleksi.rasanen@runosydan.net
+
+	Example with CSQLite class:
+
+		require 'CSQLite/CSQLite.php';
+		require 'CDatabaseCreator/CDatabaseCreator.php';
+
+		$cities = array( 'id' => 'INTEGER PRIMARY KEY',
+			'name' => 'VARCHAR(50)' );
+
+		$users = array( 'id' => 'INTEGER PRIMARY KEY',
+			'username' => 'VARCHAR(50)',
+			'password' => 'VARCHAR(60)' );
+
+		$db = new CSQLite();
+
+		$dbCreator = new CDatabaseCreator();
+		$dbCreator->setDatabaseClass( $db );
+		$dbCreator->setDatabaseEngine( 'sqlite' );
+
+		$db->connect( 'testi.db', true );
+		$dbCreator->createTable( 'users', $users );
+		$dbCreator->createTable( 'cities', $cities );
